@@ -166,7 +166,7 @@ export async function handleWebhooks(config: WebhookRegistrationConfig, req: Req
   }
 
   // If we don't have a handler for the event, still return 200 response or else
-  // the Clerk webhook overview shows high error rate
+  // the Clerk will keep retrying the event
   return new Response('', { status: 200 })
 }
 
