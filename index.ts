@@ -165,8 +165,9 @@ export async function handleWebhooks(config: WebhookRegistrationConfig, req: Req
     return await _handler(evt, handlerMap[evt.type] as HandlerFn<HandlerType>)
   }
 
-  // If we don't have a handler for the event, return a 404
-  return new Response('', { status: 404 })
+  // If we don't have a handler for the event, still return 200 response or else
+  // the Clerk webhook overview shows high error rate
+  return new Response('', { status: 200 })
 }
 
 async function _handler(event: WebhookEvent, callback: Function): Promise<Response> {
